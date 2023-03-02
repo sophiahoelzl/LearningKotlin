@@ -85,10 +85,10 @@ fun game() {
         w++                      //
     }                            //
 
-
+/*
     for (i in a){
         print(i)
-    }
+    }*/
 
     println()
     println("Random 4-digit number was generated! Now we can start the game:)!")
