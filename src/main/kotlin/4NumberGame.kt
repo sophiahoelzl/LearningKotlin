@@ -46,7 +46,6 @@ var rightNumWrongPlace = 0 //Right digit but wrong place
 var rightNumRightPlace = 0 //Right digit and right place
 
 
-
 fun compare(userInput: IntArray, guessedNum: IntArray): Boolean { //copmares the two arrays, returns boolean if number was guessed
 
     val hash = HashSet<Int>(4) //to remove duplicates
@@ -85,7 +84,6 @@ fun game() {
         a[w] = i                 //
         w++                      //
     }                            //
-
 
 
     for (i in a){
