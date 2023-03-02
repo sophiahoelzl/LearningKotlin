@@ -5,18 +5,18 @@ fun main() {
 }
 
 var userInput = ""  //String that hold user input
-var h = HashSet<Int>(4) //HashSet for random number (Hashset because easier with duplicates)
+var randomNumber = HashSet<Int>(4) //HashSet for random number (Hashset because easier with duplicates)
 
 var check: Boolean = false //boolean to check if game is over
 
 
 fun random(): Array<Int> {  //random number generator, returns Array<Int> (easier for me to compare)
 
-    while (h.size < 4){
-        h += Random.nextInt(0,9)
+    while (randomNumber.size < 4){
+        randomNumber += Random.nextInt(0,9)
     }
 
-    return h.toTypedArray()
+    return randomNumber.toTypedArray()
 }
 
 
@@ -26,7 +26,8 @@ fun UserInput(): IntArray { //Method for User input
     if (userInput.length != 4 || userInput.contains("[A-z]".toRegex())){    //to check if only 4 numbers are entered
         println("Only 4 digits are allowed!!")
         UserInput()
-    }else {
+    }
+    else {
         println("Your guess is: $userInput")
     }
 
@@ -44,15 +45,20 @@ fun UserInput(): IntArray { //Method for User input
 var rightNumWrongPlace = 0 //Right digit but wrong place
 var rightNumRightPlace = 0 //Right digit and right place
 
+
+
 fun compare(userInput: IntArray, guessedNum: IntArray): Boolean { //copmares the two arrays, returns boolean if number was guessed
+
+    val hash = HashSet<Int>(4) //to remove duplicates
 
     for (a in userInput){ // checks the right digit but wrong place
         for (b in guessedNum){
             if (a.equals(b)){
-                rightNumWrongPlace++
+                hash.add(a)
             }
         }
     }
+    rightNumWrongPlace = hash.size //set rightNumWrongPlace to size if hash
 
     for (i in 0..3){    // checks the right digit and right place
         if (userInput[i] == guessedNum[i]){
@@ -60,7 +66,6 @@ fun compare(userInput: IntArray, guessedNum: IntArray): Boolean { //copmares the
 
         }
     }
-
 
     if (rightNumRightPlace == 4){ //checks if number was guessed correct if rightNumRightPlace is 4
         return true
@@ -71,30 +76,31 @@ fun compare(userInput: IntArray, guessedNum: IntArray): Boolean { //copmares the
 
 fun game() {
 
-    var a = IntArray(4)     //
+    val a = IntArray(4)     //
     var w = 0                    //
                                  //
-    var arr = random()           //
+    val arr = random()           //
                                  //     initializes the generated random number
     for (i in arr){              //
         a[w] = i                 //
         w++                      //
     }                            //
 
-    /*
-    for (i in h){
+
+
+    for (i in a){
         print(i)
-    }*/
+    }
 
     println()
     println("Random 4-digit number was generated! Now we can start the game:)!")
     println()
 
-    while (check == false){     // checks if the number was already guessed
+    while (!check){     // checks if the number was already guessed
 
         println("*************************************")
         println("Enter 4 digits to guess the number:")
-        var user = UserInput()
+        val user = UserInput()
 
         check = compare(user, a)
 
